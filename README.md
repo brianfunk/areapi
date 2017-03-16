@@ -12,7 +12,7 @@ https://[host]/api/[area]/[year]/find?latitude=[lat]&longitude=[lon]&showall=[tr
 
 ## Examples
 - CMA: https://areapi.herokuapp.com/api/cma/1990/find?latitude=38.9907&longitude=-77.0261&format=json
-- BTA: https://areapi.herokuapp.com/api/bta/1990/find?latitude=38.9907&longitude=-77.0261&format=json
+- BTA: https://areapi.herokuapp.com/api/bta/1990/find?latitude=39.7294&longitude=-104.8319&format=xml
 
 ## Parameters
 
