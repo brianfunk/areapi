@@ -18,7 +18,9 @@ _____ _______   ____   /  _  \\______   \   |
 const include = require('include')(__dirname);
 
 const Pool = require('pg-pool');
-const url = require('url')
+const url = require('url');
+
+const js2xmlparser = require("js2xmlparser");
 
 //*******************************************************************
 // db connection
@@ -101,7 +103,21 @@ get.areas = function(req, res){
 			}			
 		}	
 		
-		res.json(resp_json);
+		if (format === 'xml') {
+			
+			let resp_xml = js2xmlparser.parse('response', resp_json);
+			
+			res.set('Content-Type', 'text/xml');			
+			res.send(resp_xml);	
+		}
+		else if (format === 'jsonp') {
+			res.jsonp(resp_json);	
+		}
+		else {		
+			res.json(resp_json);			
+		}
+		
+		
 		
 	});	
     

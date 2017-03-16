@@ -232,6 +232,11 @@
       "from": "ipaddr.js@1.2.0",
       "resolved": "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.2.0.tgz"
     },
+    "js2xmlparser": {
+      "version": "3.0.0",
+      "from": "js2xmlparser@latest",
+      "resolved": "https://registry.npmjs.org/js2xmlparser/-/js2xmlparser-3.0.0.tgz"
+    },
     "lodash.reduce": {
       "version": "4.6.0",
       "from": "lodash.reduce@4.6.0",
@@ -466,6 +471,11 @@
       "version": "1.0.0",
       "from": "x-xss-protection@1.0.0",
       "resolved": "https://registry.npmjs.org/x-xss-protection/-/x-xss-protection-1.0.0.tgz"
+    },
+    "xmlcreate": {
+      "version": "1.0.2",
+      "from": "xmlcreate@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/xmlcreate/-/xmlcreate-1.0.2.tgz"
     },
     "xtend": {
       "version": "4.0.1",

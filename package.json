@@ -32,6 +32,7 @@
     "file-stream-rotator": "^0.1.0",
     "helmet": "^3.5.0",
     "include": "^1.1.0",
+    "js2xmlparser": "^3.0.0",
     "mkdirp": "^0.5.1",
     "morgan": "^1.8.1",
     "pg": "^6.1.4",
