@@ -1,41 +1,58 @@
 {
   "name": "areapi",
-  "version": "0.0.1",
-  "description": "API for Areas",
-  "engines": {
-    "node": ">=7.7.x",
-    "npm": ">=3.10.x"
+  "version": "1.0.0",
+  "description": "Which FCC market area is this point in? CMA, BTA, MTA, EA, MEA, REAG, PEA lookup by latitude/longitude. Zero dependencies, no database.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "browser": "./src/index.js",
+      "default": "./src/index.js"
+    },
+    "./data/*": "./data/*"
   },
-  "main": "index.js",
+  "bin": {
+    "areapi": "./src/cli.js"
+  },
+  "files": [
+    "src/",
+    "data/*.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test",
+    "build:data": "node scripts/build-data.js",
+    "build:site": "node scripts/build-site.js",
+    "dev": "netlify dev"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brianfunk/areapi.git"
   },
   "keywords": [
-    "area"
+    "fcc",
+    "cma",
+    "bta",
+    "mta",
+    "pea",
+    "market-area",
+    "geocoding",
+    "point-in-polygon",
+    "spectrum",
+    "wireless"
   ],
-  "author": "api",
+  "author": "Brian Funk",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/brianfunk/areapi/issues"
   },
-  "homepage": "https://github.com/brianfunk/areapi#readme",
-  "dependencies": {
-    "body-parser": "^1.17.1",
-    "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.15.2",
-    "file-stream-rotator": "^0.1.0",
-    "helmet": "^3.5.0",
-    "include": "^1.1.0",
-    "js2xmlparser": "^3.0.0",
-    "mkdirp": "^0.5.1",
-    "morgan": "^1.8.1",
-    "pg": "^6.1.4",
-    "pg-pool": "^1.6.0"
+  "homepage": "https://areapi.netlify.app",
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "mapshaper": "^0.7.72"
   }
 }
