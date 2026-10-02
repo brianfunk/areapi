@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>areapi</title>
+  <meta name="description" content="Which FCC market area is this point in? CMA, BTA, MTA, EA, MEA, REAG and PEA lookup by latitude and longitude.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <aside class="panel">
+      <header>
+        <h1>areapi</h1>
+        <p class="tagline">Which FCC market area is this point in?</p>
+      </header>
+
+      <form id="form" class="coords" autocomplete="off">
+        <label>Latitude <input id="lat" name="lat" type="number" step="any" min="-90" max="90" value="38.9907" required></label>
+        <label>Longitude <input id="lon" name="lon" type="number" step="any" min="-180" max="180" value="-77.0261" required></label>
+        <button type="submit">Find</button>
+        <button type="button" id="locate" title="Use my location">◎</button>
+      </form>
+      <p class="hint">Or click anywhere on the map.</p>
+
+      <section id="results" class="results" aria-live="polite"></section>
+
+      <p class="api">
+        API: <a id="apilink" href="/api/find?lat=38.9907&amp;lon=-77.0261"><code id="apitext">/api/find?lat=38.9907&amp;lon=-77.0261</code></a>
+      </p>
+
+      <footer>
+        <a href="https://github.com/brianfunk/areapi">GitHub</a> ·
+        <a href="https://www.npmjs.com/package/@brianfunk/areapi">npm</a> ·
+        <a href="/api/types">/api/types</a>
+        <p class="fine">Cellular Market Areas, Basic &amp; Major Trading Areas, Economic Areas, Major Economic Areas, Regional Economic Area Groupings and Partial Economic Areas, built from FCC county crosswalks and Census boundaries. No database, no server-side state. The Gulf of Mexico has no land polygon and is not covered.</p>
+      </footer>
+    </aside>
+    <div id="map" class="map" role="application" aria-label="Map"></div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

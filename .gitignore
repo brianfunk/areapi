@@ -1,36 +1,15 @@
-# DotEnv
+# env
 .env
 
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-# Coverage and quality directories
-coverage
-quality
-
-# Grunt intermediate storage
-.grunt
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons
-build/Release
-
-# Dependency directories
+# deps / tooling
 node_modules
-jspm_packages
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
+.netlify
+*.log
 .DS_Store
+
+# raw FCC shapefile zips (download manually, see README)
+data/raw/
+
+# site build outputs
+site/areapi.js
+site/data/
