@@ -11,7 +11,7 @@ await build({
   minify: true,
   outfile: 'site/areapi.js',
   // load.js imports node:fs lazily inside a Node-only branch; keep it external.
-  external: ['node:fs/promises', 'node:url'],
+  external: ['node:fs/promises', 'node:url', 'node:path'],
 });
 
 mkdirSync('site/data', { recursive: true });
