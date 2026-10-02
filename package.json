@@ -13,7 +13,7 @@
     "./data/*": "./data/*"
   },
   "bin": {
-    "areapi": "./src/cli.js"
+    "areapi": "src/cli.js"
   },
   "files": [
     "src/",
