@@ -45,6 +45,14 @@ test('find: territories are covered', async () => {
   assert.equal(usvi.areas[0].id, '491');
 });
 
+test('find: Gulf of Mexico is its own market', async () => {
+  const r = await find({ lat: 27.5, lon: -90 });
+  const ids = Object.fromEntries(r.areas.map((a) => [a.type, a.id]));
+  assert.deepEqual(ids, { cma: '306', ea: '176', mea: '52', reag: '12', pea: '416' });
+  const mexico = await find({ lat: 24, lon: -93 });
+  assert.equal(mexico.status, 'NONE');
+});
+
 test('find: open ocean is NONE', async () => {
   const r = await find({ lat: 30, lon: -45 });
   assert.equal(r.status, 'NONE');
@@ -82,5 +90,7 @@ test('types: manifest lists every type with counts', async () => {
   const m = await types();
   for (const t of TYPES) assert.ok(m.types[t].count > 0, t);
   assert.equal(m.types.bta.count, 493);
+  assert.equal(m.types.cma.count, 734);
+  for (const t of TYPES) assert.deepEqual(m.types[t].missing, [], t);
   assert.equal(m.types.pea.count, 416);
 });

@@ -6,6 +6,7 @@
   "main": "./src/index.js",
   "exports": {
     ".": {
+      "types": "./src/index.d.ts",
       "browser": "./src/index.js",
       "default": "./src/index.js"
     },
@@ -54,5 +55,6 @@
   "devDependencies": {
     "esbuild": "^0.28.2",
     "mapshaper": "^0.7.72"
-  }
+  },
+  "types": "./src/index.d.ts"
 }

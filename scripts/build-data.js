@@ -10,6 +10,7 @@
  *   data/raw/cb_2020_us_county_500k.zip  Census 2020 cartographic counties (used only for AS, GU, MP, VI)
  *   data/raw/FCCCNTY2K.txt               FCC county -> market crosswalk (CMA, BTA, MTA, EA, MEA, REA)
  *   data/raw/FCC_PEAs_Website.zip        FCC Partial Economic Areas shapefile
+ *   data/raw/eez_iho_gulf.json           Marine Regions EEZ/IHO intersection, Gulf of Mexico (MRGID 25281 = U.S. part)
  *   scripts/names.json                   market number -> name (from ULS, see scripts/extract-names.js)
  */
 import { execFileSync } from 'node:child_process';
@@ -77,6 +78,16 @@ mapshaper([
   '-o', 'format=geojson', `precision=${PRECISION}`, `${TMP}/pea.json`,
 ]);
 
+// 2b. The Gulf of Mexico is water-only. Use the U.S. part of the Gulf from the
+//     Marine Regions EEZ x IHO sea areas dataset for the four Gulf market areas.
+const GULF = { cma: '306', ea: '176', mea: '52', reag: '12' };
+const gulfRaw = JSON.parse(readFileSync('data/raw/eez_iho_gulf.json', 'utf8'));
+const gulfFeature = gulfRaw.features.find((f) => f.properties.mrgid === 25281);
+if (!gulfFeature) throw new Error('Gulf of Mexico (MRGID 25281) not found in data/raw/eez_iho_gulf.json');
+writeFileSync(`${TMP}/gulf_raw.json`, JSON.stringify({ type: 'FeatureCollection', features: [gulfFeature] }));
+mapshaper(['-i', `${TMP}/gulf_raw.json`, '-simplify', SIMPLIFY, 'keep-shapes', '-filter-fields', 'mrgid', '-o', 'format=geojson', `precision=${PRECISION}`, `${TMP}/gulf.json`]);
+const gulfGeometry = JSON.parse(readFileSync(`${TMP}/gulf.json`, 'utf8')).features[0].geometry;
+
 // 3. Post-process: stable ids, names, bboxes, metadata.
 const manifest = {
   generated: new Date().toISOString().slice(0, 10),
@@ -86,6 +97,7 @@ const manifest = {
     'U.S. Census Bureau, Census 2000 generalized county boundaries (co99_d00)',
     'U.S. Census Bureau, 2020 cartographic boundary counties 1:500k (American Samoa, Guam, Northern Mariana Islands, U.S. Virgin Islands only)',
     'FCC, Partial Economic Areas shapefile (FCC_PEAs_Website.zip)',
+    'Marine Regions (VLIZ), Marine and land zones: the union of world country boundaries and EEZs / IHO sea areas, "United States part of the Gulf of Mexico" (MRGID 25281), used for CMA 306, EA 176, MEA 52, REAG 12',
   ],
   crosswalk: 'FCC OET county/market cross reference FCCCNTY2K.txt',
   names: names.source,
@@ -101,6 +113,7 @@ for (const [type, t] of Object.entries(TYPES)) {
     if (byId.has(id)) throw new Error(`${type}: duplicate id ${id}`);
     byId.set(id, f.geometry);
   }
+  if (GULF[type] && !byId.has(GULF[type])) byId.set(GULF[type], gulfGeometry);
   const ids = [...byId.keys()].sort((a, b) => Number(a) - Number(b));
   const features = ids.map((id) => {
     const geometry = byId.get(id);

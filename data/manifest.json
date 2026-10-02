@@ -5,7 +5,8 @@
  "geometrySources": [
   "U.S. Census Bureau, Census 2000 generalized county boundaries (co99_d00)",
   "U.S. Census Bureau, 2020 cartographic boundary counties 1:500k (American Samoa, Guam, Northern Mariana Islands, U.S. Virgin Islands only)",
-  "FCC, Partial Economic Areas shapefile (FCC_PEAs_Website.zip)"
+  "FCC, Partial Economic Areas shapefile (FCC_PEAs_Website.zip)",
+  "Marine Regions (VLIZ), Marine and land zones: the union of world country boundaries and EEZs / IHO sea areas, \"United States part of the Gulf of Mexico\" (MRGID 25281), used for CMA 306, EA 176, MEA 52, REAG 12"
  ],
  "crosswalk": "FCC OET county/market cross reference FCCCNTY2K.txt",
  "names": "FCC Universal Licensing System public data, l_market.zip (MK.dat market_code/market_name)",
@@ -14,15 +15,10 @@
    "name": "Cellular Market Area",
    "vintage": "1990",
    "note": "306 MSAs (incl. Gulf of Mexico) + 428 RSAs; FCC Public Notice CL-92-40",
-   "count": 733,
+   "count": 734,
    "defined": 734,
-   "missing": [
-    {
-     "id": "306",
-     "name": "Gulf of Mexico"
-    }
-   ],
-   "bytes": 754355
+   "missing": [],
+   "bytes": 826301
   },
   "bta": {
    "name": "Basic Trading Area",
@@ -46,43 +42,28 @@
    "name": "Economic Area",
    "vintage": "1995",
    "note": "BEA 1995 Economic Areas (1-172) + FCC 173-176 (Guam/NMI, PR/USVI, American Samoa, Gulf of Mexico)",
-   "count": 175,
+   "count": 176,
    "defined": 176,
-   "missing": [
-    {
-     "id": "176",
-     "name": "Gulf of Mexico"
-    }
-   ],
-   "bytes": 404468
+   "missing": [],
+   "bytes": 476414
   },
   "mea": {
    "name": "Major Economic Area",
    "vintage": "1995",
    "note": "52 MEAs composed of EAs; 47 CFR 27.6",
-   "count": 51,
+   "count": 52,
    "defined": 52,
-   "missing": [
-    {
-     "id": "52",
-     "name": "Gulf of Mexico"
-    }
-   ],
-   "bytes": 269922
+   "missing": [],
+   "bytes": 341866
   },
   "reag": {
    "name": "Regional Economic Area Grouping",
    "vintage": "1995",
    "note": "12 REAGs composed of MEAs; 47 CFR 27.6",
-   "count": 11,
+   "count": 12,
    "defined": 12,
-   "missing": [
-    {
-     "id": "12",
-     "name": "Gulf of Mexico"
-    }
-   ],
-   "bytes": 177322
+   "missing": [],
+   "bytes": 249266
   },
   "pea": {
    "name": "Partial Economic Area",

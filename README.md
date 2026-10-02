@@ -1,5 +1,10 @@
 # areapi
 
+[![npm](https://img.shields.io/npm/v/areapi)](https://www.npmjs.com/package/areapi)
+[![ci](https://github.com/brianfunk/areapi/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/areapi/actions/workflows/ci.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c0e102e0-2493-4e3e-b67a-63708ba7756c/deploy-status)](https://app.netlify.com/projects/areapi/deploys)
+[![license](https://img.shields.io/github/license/brianfunk/areapi)](LICENSE)
+
 **Which FCC market area is this point in?**
 
 Give it a latitude and longitude, get back the Cellular Market Area, Basic Trading Area, Major Trading Area, Economic Area, Major Economic Area, Regional Economic Area Grouping and Partial Economic Area that contain it. These are the geographies the FCC uses to license wireless spectrum.
@@ -7,6 +12,8 @@ Give it a latitude and longitude, get back the Cellular Market Area, Basic Tradi
 - **Website:** https://areapi.netlify.app
 - **API:** https://areapi.netlify.app/api/find?lat=38.9907&lon=-77.0261
 - **npm:** `npm install areapi` or `npx areapi 38.9907 -77.0261`
+
+[![areapi map page showing the seven FCC market areas containing a point in Washington, DC](docs/screenshot.jpg)](https://areapi.netlify.app/?lat=38.9907&lon=-77.0261)
 
 No database, no server-side state, zero runtime dependencies. The polygons are simplified GeoJSON shipped with the package (about 3 MB for all seven types) and the point-in-polygon test is forty lines of ray casting.
 
@@ -35,7 +42,7 @@ PEA     5  Baltimore, MD-Washington, DC
 | `reag` | Regional Economic Area Grouping | 12 | 1995 | 47 CFR 27.6 |
 | `pea` | Partial Economic Area | 416 | 2014 | FCC PN DA 14-759 |
 
-The Gulf of Mexico (CMA 306, EA 176, MEA 52, REAG 12) is a water-only area with no land polygon and is not covered. Everything else, including Puerto Rico, the U.S. Virgin Islands, Guam, the Northern Mariana Islands and American Samoa, is.
+All of them are complete, including Puerto Rico, the U.S. Virgin Islands, Guam, the Northern Mariana Islands and American Samoa. The Gulf of Mexico (CMA 306, EA 176, MEA 52, REAG 12) is a water-only market; its polygon is the U.S. part of the Gulf from Marine Regions, which runs from the coastline out to the EEZ limit. (The FCC draws the EA/MEA/REAG Gulf boundary 12 nautical miles offshore rather than at the coast; that strip is attributed to the Gulf here.)
 
 ## HTTP API
 
@@ -79,7 +86,7 @@ const f = await feature('cma', 8);   // GeoJSON Feature with geometry and bbox, 
 const m = await types();             // manifest: counts, vintages, sources
 ```
 
-Works in Node 20+ and in the browser. In the browser, call `setDataUrl('/path/to/data/')` so it knows where to fetch the `<type>.json` files from; they are loaded lazily, one type at a time, and cached.
+Ships TypeScript declarations. Works in Node 20+ and in the browser. In the browser, call `setDataUrl('/path/to/data/')` so it knows where to fetch the `<type>.json` files from; they are loaded lazily, one type at a time, and cached.
 
 ## CLI
 
@@ -99,6 +106,7 @@ Every FCC market area is an aggregation of county-equivalents, so the polygons a
 | County boundaries | U.S. Census Bureau, Census 2000 generalized counties (`co99_d00`), plus the 2020 1:500k cartographic file for the four territories missing from the 2000 file |
 | County → market crosswalk | FCC OET `FCCCNTY2K.txt` (CMA, BTA, MTA, EA, MEA, REA per county FIPS) |
 | PEA polygons | FCC `FCC_PEAs_Website.zip` shapefile |
+| Gulf of Mexico | Marine Regions (VLIZ) EEZ × IHO sea areas, "United States part of the Gulf of Mexico" (MRGID 25281) |
 | Market names | FCC Universal Licensing System public data (`l_market.zip`, market table) |
 
 To rebuild from scratch:
@@ -110,6 +118,7 @@ curl -O https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_county_500k.zi
 curl -O https://transition.fcc.gov/bureaus/oet/info/maps/areas/data/2000/FCCCNTY2K.txt
 curl -O https://transition.fcc.gov/bureaus/oet/info/maps/areas/data/FCC_PEAs_Website.zip
 curl -O https://data.fcc.gov/download/pub/uls/complete/l_market.zip
+curl -o eez_iho_gulf.json "https://geo.vliz.be/geoserver/MarineRegions/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=MarineRegions:eez_iho&outputFormat=json&CQL_FILTER=marregion%20ILIKE%20%27%25Gulf%20of%20Mexico%25%27"
 unzip -p l_market.zip MK.dat | awk -F'|' '{print $6 "|" $9}' | sort -u > uls-markets.txt
 cd ../..
 node scripts/extract-names.js   # -> scripts/names.json
