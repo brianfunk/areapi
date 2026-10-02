@@ -1,6 +1,6 @@
 # areapi
 
-[![npm](https://img.shields.io/npm/v/areapi)](https://www.npmjs.com/package/areapi)
+[![npm](https://img.shields.io/npm/v/@brianfunk/areapi)](https://www.npmjs.com/package/@brianfunk/areapi)
 [![ci](https://github.com/brianfunk/areapi/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/areapi/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c0e102e0-2493-4e3e-b67a-63708ba7756c/deploy-status)](https://app.netlify.com/projects/areapi/deploys)
 [![license](https://img.shields.io/github/license/brianfunk/areapi)](LICENSE)
@@ -11,14 +11,14 @@ Give it a latitude and longitude, get back the Cellular Market Area, Basic Tradi
 
 - **Website:** https://areapi.netlify.app
 - **API:** https://areapi.netlify.app/api/find?lat=38.9907&lon=-77.0261
-- **npm:** `npm install areapi` or `npx areapi 38.9907 -77.0261`
+- **npm:** `npm install @brianfunk/areapi` or `npx @brianfunk/areapi 38.9907 -77.0261`
 
 [![areapi map page showing the seven FCC market areas containing a point in Washington, DC](docs/screenshot.jpg)](https://areapi.netlify.app/?lat=38.9907&lon=-77.0261)
 
 No database, no server-side state, zero runtime dependencies. The polygons are simplified GeoJSON shipped with the package (about 3 MB for all seven types) and the point-in-polygon test is forty lines of ray casting.
 
 ```
-$ npx areapi 38.9907 -77.0261
+$ npx @brianfunk/areapi 38.9907 -77.0261
 point   38.9907, -77.0261
 status  OK
 CMA     8  Washington, DC-MD-VA
@@ -78,7 +78,7 @@ GET /api/types
 ## Library
 
 ```js
-import { find, feature, types } from 'areapi';
+import { find, feature, types } from '@brianfunk/areapi';
 
 const r = await find({ lat: 38.9907, lon: -77.0261 });                 // every type
 const r = await find({ lat: 38.9907, lon: -77.0261 }, { types: 'cma' }); // one or more

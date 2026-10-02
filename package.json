@@ -1,5 +1,5 @@
 {
-  "name": "areapi",
+  "name": "@brianfunk/areapi",
   "version": "1.0.0",
   "description": "Which FCC market area is this point in? CMA, BTA, MTA, EA, MEA, REAG, PEA lookup by latitude/longitude. Zero dependencies, no database.",
   "type": "module",
