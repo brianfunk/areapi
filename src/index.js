@@ -1,7 +1,7 @@
 /**
  * areapi: which FCC market area is this point in?
  *
- *   import { find } from 'areapi';
+ *   import { find } from '@brianfunk/areapi';
  *   const r = await find({ lat: 38.9907, lon: -77.0261 });
  *   r.areas -> [{ type: 'cma', id: '8', name: 'Washington, DC-MD-VA', ... }, ...]
  */

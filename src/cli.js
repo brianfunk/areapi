@@ -2,9 +2,9 @@
 /**
  * areapi CLI
  *
- *   npx areapi 38.9907 -77.0261
- *   npx areapi 38.9907 -77.0261 --types cma,bta --format json
- *   npx areapi --types            # list area types
+ *   npx @brianfunk/areapi 38.9907 -77.0261
+ *   npx @brianfunk/areapi 38.9907 -77.0261 --types cma,bta --format json
+ *   npx @brianfunk/areapi --types            # list area types
  */
 import { parseArgs } from 'node:util';
 import { find, types, TYPES, TYPE_NAMES, AreapiError } from './index.js';
