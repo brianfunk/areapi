@@ -127,8 +127,12 @@ mapshaper([
 ]);
 
 // 2a2. CGSA license polygons: both blocks in one layer, keyed by call sign.
-const cgsaFiles = ['data/raw/A_block_CGSA.json', 'data/raw/B_block_CGSA.json'].filter((f) => existsSync(f));
-if (cgsaFiles.length < 2) console.warn(`warning: only ${cgsaFiles.length} of 2 CGSA block files present (${cgsaFiles.join(', ') || 'none'})`);
+const cgsaFiles = ['data/raw/A_block_CGSA.json', 'data/raw/B_block_CGSA.json'];
+const cgsaMissing = cgsaFiles.filter((f) => !existsSync(f));
+if (cgsaMissing.length) {
+  // Both blocks are required: a partial build would silently publish half the licenses.
+  throw new Error(`missing CGSA source file(s): ${cgsaMissing.join(', ')}. Download both blocks from the FCC page (see README) into data/raw/.`);
+}
 mapshaper([
   '-i', ...cgsaFiles, 'combine-files',
   '-merge-layers', 'force', 'name=cgsa',
@@ -219,6 +223,8 @@ for (const [type, t] of Object.entries(TYPES)) {
     name: t.name,
     ...(type === 'cgsa' ? { blocks: cgsaFiles.map((f) => f.match(/([AB])_block/)[1]) } : {}),
     defined: t.defined,
+    /** @deprecated 1.0 name for `defined`; kept through 1.x */
+    vintage: t.defined,
     asOf,
     note: t.note,
     count: features.length,

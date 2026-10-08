@@ -10,6 +10,9 @@ test('find: Washington DC hits every type', async () => {
   assert.deepEqual(r.types, TYPES);
   const byType = Object.fromEntries(r.areas.map((a) => [a.type, a]));
   assert.equal(byType.cma.id, '8');
+  assert.equal(byType.cma.defined, '1990');
+  assert.equal(byType.cma.vintage, '1990', 'deprecated 1.0 alias still present');
+  assert.match(byType.cma.asOf, /^\d{4}-\d{2}-\d{2}$/);
   assert.match(byType.cma.name, /^Washington, DC/);
   assert.equal(byType.bta.id, '461');
   assert.equal(byType.mta.id, '10');

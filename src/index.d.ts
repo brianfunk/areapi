@@ -26,6 +26,8 @@ export interface Area {
   asOf: string | null;
   /** Year the scheme was defined ("rolling" for license areas that change) */
   defined: string | null;
+  /** @deprecated 1.0 name for `defined`; kept through 1.x */
+  vintage: string | null;
 }
 
 export interface FindOptions {
@@ -60,6 +62,8 @@ export interface Manifest {
   types: Record<AreaType, {
     name: string;
     defined: string;
+    /** @deprecated 1.0 name for `defined`; kept through 1.x */
+    vintage: string;
     asOf: string;
     note: string;
     count: number;

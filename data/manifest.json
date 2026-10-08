@@ -16,6 +16,7 @@
   "cma": {
    "name": "Cellular Market Area",
    "defined": "1990",
+   "vintage": "1990",
    "asOf": "2026-10-08",
    "note": "306 MSAs (incl. Gulf of Mexico) + 428 RSAs; FCC Public Notice CL-92-40",
    "count": 734,
@@ -26,6 +27,7 @@
   "bta": {
    "name": "Basic Trading Area",
    "defined": "1992",
+   "vintage": "1992",
    "asOf": "2026-10-08",
    "note": "Rand McNally 1992 Commercial Atlas & Marketing Guide, 123rd ed., as modified by the FCC",
    "count": 493,
@@ -36,6 +38,7 @@
   "mta": {
    "name": "Major Trading Area",
    "defined": "1992",
+   "vintage": "1992",
    "asOf": "2026-10-08",
    "note": "Rand McNally 1992 Commercial Atlas & Marketing Guide, 123rd ed., as modified by the FCC",
    "count": 51,
@@ -46,6 +49,7 @@
   "ea": {
    "name": "Economic Area",
    "defined": "1995",
+   "vintage": "1995",
    "asOf": "2026-10-08",
    "note": "BEA 1995 Economic Areas (1-172) + FCC 173-176 (Guam/NMI, PR/USVI, American Samoa, Gulf of Mexico)",
    "count": 176,
@@ -56,6 +60,7 @@
   "mea": {
    "name": "Major Economic Area",
    "defined": "1995",
+   "vintage": "1995",
    "asOf": "2026-10-08",
    "note": "52 MEAs composed of EAs; 47 CFR 27.6",
    "count": 52,
@@ -66,6 +71,7 @@
   "reag": {
    "name": "Regional Economic Area Grouping",
    "defined": "1995",
+   "vintage": "1995",
    "asOf": "2026-10-08",
    "note": "12 REAGs composed of MEAs; 47 CFR 27.6",
    "count": 12,
@@ -76,6 +82,7 @@
   "pea": {
    "name": "Partial Economic Area",
    "defined": "2014",
+   "vintage": "2014",
    "asOf": "2026-10-08",
    "note": "416 PEAs; FCC Public Notice DA 14-759 (GN Docket 12-268), Census 2010 counties",
    "count": 416,
@@ -86,6 +93,7 @@
   "rpc": {
    "name": "Regional PCS Area",
    "defined": "1994",
+   "vintage": "1994",
    "asOf": "2026-10-08",
    "note": "5 regions used for narrowband PCS licensing",
    "count": 5,
@@ -96,6 +104,7 @@
   "eag": {
    "name": "Economic Area Grouping",
    "defined": "1995",
+   "vintage": "1995",
    "asOf": "2026-10-08",
    "note": "6 EAGs composed of EAs, used for 220 MHz and 700 MHz guard band licensing (identical on land; the Gulf is split and not attributed here)",
    "count": 6,
@@ -106,6 +115,7 @@
   "vpc": {
    "name": "VHF Public Coast Station Area",
    "defined": "1998",
+   "vintage": "1998",
    "asOf": "2026-10-08",
    "note": "42 VPC areas: 9 maritime regions plus 33 inland waterway areas",
    "count": 42,
@@ -116,6 +126,7 @@
   "county": {
    "name": "County",
    "defined": "2025",
+   "vintage": "2025",
    "asOf": "2026-10-08",
    "note": "Current county-equivalents, Census 2025 cartographic boundaries (Connecticut uses planning regions since 2022)",
    "count": 3235,
@@ -126,6 +137,7 @@
   "state": {
    "name": "State",
    "defined": "2025",
+   "vintage": "2025",
    "asOf": "2026-10-08",
    "note": "States, DC and territories, Census 2025 cartographic boundaries",
    "count": 56,
@@ -136,6 +148,7 @@
   "cbsa": {
    "name": "Core Based Statistical Area",
    "defined": "2025",
+   "vintage": "2025",
    "asOf": "2026-10-08",
    "note": "OMB metropolitan and micropolitan statistical areas, Census 2025 cartographic boundaries",
    "count": 935,
@@ -150,6 +163,7 @@
     "B"
    ],
    "defined": "rolling",
+   "vintage": "rolling",
    "asOf": "2026-08-17",
    "note": "Licensed A/B block cellular service areas (one license per feature; A and B blocks overlap), FCC WTB map data",
    "count": 1732,

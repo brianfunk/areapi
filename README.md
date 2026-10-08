@@ -89,7 +89,7 @@ GET /api/types
 }
 ```
 
-Each area carries `asOf`, the date the dataset was built and confirmed against its source (for the rolling CGSA licenses, the FCC's own as-of date), and `defined`, the year the FCC (or OMB) created that scheme. The FCC market definitions from the 1990s are still the ones in force; `asOf` is the date that was last checked.
+Each area carries `asOf`, the date the dataset was built and confirmed against its source (for the rolling CGSA licenses, the FCC's own as-of date), and `defined`, the year the FCC (or OMB) created that scheme. (`vintage`, the 1.0 name for `defined`, is still returned through 1.x but deprecated.) The FCC market definitions from the 1990s are still the ones in force; `asOf` is the date that was last checked.
 
 `status` is `OK`, `NONE` (no area contains the point) or `ERROR` (HTTP 400 with an `error` message). Responses are CORS-enabled and cacheable for a day. The 2017 URL shape `/api/<type>/<year>/find` still works; the year is ignored.
 

@@ -79,6 +79,8 @@ export async function findType(type, { lat, lon }) {
         name: f.properties.name,
         defined: data.defined ?? null,
         asOf: data.asOf ?? null,
+        /** @deprecated 1.0 name for `defined`; kept through 1.x */
+        vintage: data.defined ?? null,
       });
     }
   }

@@ -73,7 +73,8 @@
           "id": { "type": "string", "description": "Market number, FIPS/GEOID code, or call sign (cgsa), always a string.", "example": "8" },
           "name": { "type": "string", "example": "Washington, DC-MD-VA" },
           "defined": { "type": "string", "nullable": true, "description": "Year the scheme was defined; \"rolling\" for license areas.", "example": "1990" },
-          "asOf": { "type": "string", "nullable": true, "description": "Date the data was confirmed current (YYYY-MM-DD).", "example": "2026-10-08" }
+          "asOf": { "type": "string", "nullable": true, "description": "Date the data was confirmed current (YYYY-MM-DD).", "example": "2026-10-08" },
+          "vintage": { "type": "string", "nullable": true, "deprecated": true, "description": "1.0 name for `defined`; kept through 1.x.", "example": "1990" }
         }
       },
       "FindResult": {
