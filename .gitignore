@@ -13,3 +13,6 @@ data/raw/
 # site build outputs
 site/areapi.js
 site/data/
+
+# build scratch
+data/tmp/

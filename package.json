@@ -1,7 +1,7 @@
 {
   "name": "@brianfunk/areapi",
-  "version": "1.0.0",
-  "description": "Which FCC market area is this point in? CMA, BTA, MTA, EA, MEA, REAG, PEA lookup by latitude/longitude. Zero dependencies, no database.",
+  "version": "1.1.0",
+  "description": "What area is this point in? FCC market areas (CMA, BTA, MTA, EA, MEA, REAG, PEA, RPC, EAG, VPC), cellular license areas, counties, states and CBSAs by latitude/longitude. Zero dependencies, no database.",
   "type": "module",
   "main": "./src/index.js",
   "exports": {
@@ -28,7 +28,7 @@
     "test": "node --test",
     "build:data": "node scripts/build-data.js",
     "build:site": "node scripts/build-site.js",
-    "dev": "netlify dev"
+    "dev": "node scripts/dev.js"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,10 @@
     "geocoding",
     "point-in-polygon",
     "spectrum",
-    "wireless"
+    "wireless",
+    "county",
+    "cbsa",
+    "fips"
   ],
   "author": "Brian Funk",
   "license": "MIT",
