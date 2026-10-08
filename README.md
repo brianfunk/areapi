@@ -1,9 +1,15 @@
 # areapi
 
-[![npm](https://img.shields.io/npm/v/@brianfunk/areapi)](https://www.npmjs.com/package/@brianfunk/areapi)
-[![ci](https://github.com/brianfunk/areapi/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/areapi/actions/workflows/ci.yml)
+[![areapi](https://img.shields.io/badge/areapi-What%20area%20is%20this%20point%20in%3F-b5d4ff.svg)](https://github.com/brianfunk/areapi)
+[![Netlify](https://img.shields.io/badge/live-areapi.netlify.app-b5d4ff.svg)](https://areapi.netlify.app)
+[![npm version](https://img.shields.io/npm/v/@brianfunk/areapi.svg)](https://www.npmjs.com/package/@brianfunk/areapi)
+[![npm downloads](https://img.shields.io/npm/dm/@brianfunk/areapi.svg)](https://www.npmjs.com/package/@brianfunk/areapi)
+[![CI](https://github.com/brianfunk/areapi/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/areapi/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c0e102e0-2493-4e3e-b67a-63708ba7756c/deploy-status)](https://app.netlify.com/projects/areapi/deploys)
-[![license](https://img.shields.io/github/license/brianfunk/areapi)](LICENSE)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)
+[![Semver](https://img.shields.io/badge/SemVer-2.0-blue.svg)](http://semver.org/spec/v2.0.0.html)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+[![LinkedIn](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/brianrandyfunk)
 
 **Which FCC market area is this point in?**
 
