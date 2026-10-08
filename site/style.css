@@ -24,8 +24,7 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); 
 .topbar .nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .topbar .nav a { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 8px; color: var(--muted); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: background .12s, color .12s; }
 .topbar .nav a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
-.topbar .nav a:first-child { color: var(--accent); }
-.topbar .nav a:first-child:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.topbar .nav a[aria-current="page"] { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .app { display: grid; grid-template-columns: 380px 1fr; height: calc(100vh - 60px); }
 .panel { background: var(--panel); border-right: 1px solid var(--line); padding: 16px 16px 20px; overflow: auto; display: flex; flex-direction: column; gap: 14px; }
 .map { min-height: 300px; }
