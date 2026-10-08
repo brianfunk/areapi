@@ -10,7 +10,7 @@ import { parseArgs } from 'node:util';
 import { find, types, TYPES, TYPE_NAMES, AreapiError } from './index.js';
 import { format } from './format.js';
 
-const HELP = `areapi - which FCC market area is this point in?
+const HELP = `areapi - what area is this point in?
 
 Usage:
   areapi <lat> <lon> [--types cma,bta,...] [--format table|json|xml]

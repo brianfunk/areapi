@@ -11,15 +11,16 @@
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 [![LinkedIn](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/brianrandyfunk)
 
-**Which FCC market area is this point in?**
+**What area is this point in?**
 
 Give it a latitude and longitude, get back the Cellular Market Area, Basic Trading Area, Major Trading Area, Economic Area, Major Economic Area, Regional Economic Area Grouping and Partial Economic Area that contain it. These are the geographies the FCC uses to license wireless spectrum. It also returns the smaller FCC schemes (Regional PCS Areas, Economic Area Groupings, VHF Public Coast areas) and, for context, the county, state and Census metro/micro area.
 
 - **Website:** https://areapi.netlify.app
 - **API:** https://areapi.netlify.app/api/find?lat=38.9907&lon=-77.0261
+- **API docs (Swagger):** https://areapi.netlify.app/docs/ ([openapi.json](https://areapi.netlify.app/openapi.json))
 - **npm:** `npm install @brianfunk/areapi` or `npx @brianfunk/areapi 38.9907 -77.0261`
 
-[![areapi map page showing the seven FCC market areas containing a point in Washington, DC](docs/screenshot.jpg)](https://areapi.netlify.app/?lat=38.9907&lon=-77.0261)
+[![areapi map page showing the areas containing a point near Washington, DC](docs/screenshot.jpg)](https://areapi.netlify.app/?lat=38.9907&lon=-77.0261)
 
 No database, no server-side state, zero runtime dependencies. The polygons are simplified GeoJSON shipped with the package (about 10 MB for all fourteen types, loaded lazily one type at a time; the seven FCC market types alone are 3 MB) and the point-in-polygon test is forty lines of ray casting.
 
@@ -58,6 +59,8 @@ PEA     5  Baltimore, MD-Washington, DC
 All of them are complete, including Puerto Rico, the U.S. Virgin Islands, Guam, the Northern Mariana Islands and American Samoa. The Gulf of Mexico (CMA 306, EA 176, MEA 52, REAG 12) is a water-only market; its polygon is the U.S. part of the Gulf from Marine Regions, which runs from the coastline out to the EEZ limit. (The FCC draws the EA/MEA/REAG Gulf boundary 12 nautical miles offshore rather than at the coast; that strip is attributed to the Gulf here.)
 
 ## HTTP API
+
+Interactive docs with try-it-out at [/docs/](https://areapi.netlify.app/docs/); the OpenAPI 3 spec is [`site/openapi.json`](site/openapi.json).
 
 ```
 GET /api/find?lat=<lat>&lon=<lon>[&types=cma,bta,...][&format=json|xml|jsonp][&callback=fn]
@@ -154,10 +157,10 @@ Geometry is simplified (`SIMPLIFY=5%` by default, visvalingam weighted, shapes p
 npm install
 npm test            # node:test, no framework
 npm run build:site  # bundle src/ for the browser + copy data into site/
-npm run dev         # netlify dev: site + API function at http://localhost:8888
+npm run dev         # local server: site + /api/* on a free port (prints the URL); --port N to pin one
 ```
 
-Deployed on Netlify from the `dev` branch. The site is static files; the API is one Netlify Function wrapping the same library.
+`npm run dev` is a small Node server (`scripts/dev.js`) that serves `site/` and routes `/api/*` to the same handler Netlify runs, so it never collides with other local servers and does not need the Netlify CLI. Production is Netlify, deployed from the `dev` branch: the site is static files, the API is one Netlify Function wrapping the same library.
 
 ## License
 

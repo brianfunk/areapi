@@ -1,5 +1,5 @@
 /**
- * areapi: which FCC market area is this point in?
+ * areapi: what area is this point in? FCC market areas, cellular licenses, counties, states, CBSAs.
  *
  *   import { find } from '@brianfunk/areapi';
  *   const r = await find({ lat: 38.9907, lon: -77.0261 });
