@@ -48,7 +48,7 @@ npm run dev              # local server on a free port, prints the URL (site + /
 npm run build:data       # rebuild data/ from data/raw/ (slow, ~1 min)
 ```
 
-Branch from `dev`, open PRs against `dev`. CI runs `npm test` and `npm run build:site`. Netlify production is deployed from `dev`. Publishing: bump `version` in `package.json`, tag `vX.Y.Z`, `npm publish --access public`.
+Branch from `dev`, open PRs against `dev`. CI runs `npm test` and `npm run build:site`. Netlify production is deployed from `dev`. Publishing is automatic: merging `dev` into `main` (or `master`) runs `.github/workflows/publish.yml`, which publishes to npm if `package.json` has a version the registry doesn't, then tags `vX.Y.Z` and creates a GitHub release. So: bump the version on `dev`, merge to `main`, done. Needs the `NPM_TOKEN` repo secret (a granular npm token with publish rights and 2FA bypass).
 
 ## Verifying a change end to end
 

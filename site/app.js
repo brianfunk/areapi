@@ -48,7 +48,10 @@ switcher.addEventListener('change', (e) => {
 });
 map.addControl({ onAdd: () => switcher, onRemove: () => switcher.remove() }, 'top-right');
 
-const ready = new Promise((resolve) => map.on('load', resolve));
+// Resolve once the style is parsed (sources and layers exist), not on 'load', which
+// also waits for every basemap tile and can stall when a tile server is slow.
+const ready = new Promise((resolve) => (map.isStyleLoaded() ? resolve() : map.once('style.load', resolve)));
+window.areapiMap = map; // handy for debugging in devtools
 
 let marker = null;
 let manifest = null;
@@ -82,11 +85,13 @@ async function lookup(pan) {
   apitext.textContent = q;
   history.replaceState(null, '', `?lat=${lat}&lon=${lon}`);
 
-  await ready;
-  if (!marker) marker = new maplibregl.Marker({ color: '#38bdf8' }).setLngLat([lon, lat]).addTo(map);
-  else marker.setLngLat([lon, lat]);
-  if (pan) map.panTo([lon, lat]);
-  map.getSource('area').setData({ type: 'FeatureCollection', features: [] });
+  // Map work waits for the style; the lookup itself does not.
+  ready.then(() => {
+    if (!marker) marker = new maplibregl.Marker({ color: '#38bdf8' }).setLngLat([lon, lat]).addTo(map);
+    else marker.setLngLat([lon, lat]);
+    if (pan) map.panTo([lon, lat]);
+    map.getSource('area').setData({ type: 'FeatureCollection', features: [] });
+  });
 
   results.innerHTML = '<div class="status">Looking up…</div>';
   try {

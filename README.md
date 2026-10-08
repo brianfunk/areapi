@@ -160,7 +160,7 @@ npm run build:site  # bundle src/ for the browser + copy data into site/
 npm run dev         # local server: site + /api/* on a free port (prints the URL); --port N to pin one
 ```
 
-`npm run dev` is a small Node server (`scripts/dev.js`) that serves `site/` and routes `/api/*` to the same handler Netlify runs, so it never collides with other local servers and does not need the Netlify CLI. Production is Netlify, deployed from the `dev` branch: the site is static files, the API is one Netlify Function wrapping the same library.
+`npm run dev` is a small Node server (`scripts/dev.js`) that serves `site/` and routes `/api/*` to the same handler Netlify runs, so it never collides with other local servers and does not need the Netlify CLI. Production is Netlify, deployed from the `dev` branch: the site is static files, the API is one Netlify Function wrapping the same library. Merging to `main` publishes the package to npm and cuts a GitHub release automatically when the version is new.
 
 ## License
 
