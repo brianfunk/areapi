@@ -16,7 +16,8 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); }
 .app { display: grid; grid-template-columns: 380px 1fr; height: 100vh; }
-.panel { background: var(--panel); border-right: 1px solid var(--line); padding: 20px 16px; overflow: auto; display: flex; flex-direction: column; gap: 14px; }
+.panel { background: var(--panel); border-right: 1px solid var(--line); padding: 0 16px 20px; overflow: auto; display: flex; flex-direction: column; gap: 14px; }
+.panel > header { position: sticky; top: 0; z-index: 2; background: var(--panel); padding: 20px 0 12px; margin: 0 0 -4px; border-bottom: 1px solid var(--line); }
 .map { min-height: 300px; }
 h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 .tagline { margin: 2px 0 0; color: var(--muted); }
