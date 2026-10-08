@@ -17,10 +17,10 @@
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); }
 .topbar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 16px; height: 60px; padding: 0 20px; background: linear-gradient(180deg, var(--panel), color-mix(in srgb, var(--panel) 80%, var(--bg))); border-bottom: 1px solid var(--line); box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 18%, transparent), 0 6px 20px rgba(0,0,0,.18); }
 .topbar .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
-.topbar .logo { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; font-size: 18px; background: linear-gradient(135deg, var(--accent), #7c3aed); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 40%, transparent); }
-.topbar .words { display: flex; flex-direction: column; line-height: 1.15; }
-.topbar .name { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
-.topbar .tagline { color: var(--muted); font-size: 12.5px; }
+.topbar .logo { font-size: 28px; line-height: 1; }
+.topbar .words { display: flex; align-items: baseline; gap: 14px; line-height: 1; }
+.topbar .name { font-weight: 800; font-size: 30px; letter-spacing: -0.03em; }
+.topbar .tagline { color: var(--muted); font-size: 15px; }
 .topbar .nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .topbar .nav a { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 8px; color: var(--muted); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: background .12s, color .12s; }
 .topbar .nav a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
