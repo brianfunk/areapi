@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>areapi API docs</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui.css" crossorigin="">
+  <style>
+    body { margin: 0; }
+    .topbar { display: none; }
+    .back { font: 14px system-ui, sans-serif; padding: 12px 20px; background: #0f1419; }
+    .back a { color: #38bdf8; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="back"><a href="/">← areapi</a></div>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui-bundle.js" crossorigin=""></script>
+  <script>
+    SwaggerUIBundle({ url: '/openapi.json', dom_id: '#swagger-ui', deepLinking: true, tryItOutEnabled: true, defaultModelsExpandDepth: 1 });
+  </script>
+</body>
+</html>

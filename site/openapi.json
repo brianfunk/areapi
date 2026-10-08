@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "areapi",
+    "version": "1.1.0",
+    "description": "What area is this point in? Give a latitude and longitude, get back the FCC market areas (CMA, BTA, MTA, EA, MEA, REAG, PEA, RPC, EAG, VPC), cellular license areas (CGSA), county, state and Census metro/micro area (CBSA) that contain it. No API key, CORS enabled, responses cacheable for a day.",
+    "license": { "name": "MIT", "url": "https://github.com/brianfunk/areapi/blob/dev/LICENSE" }
+  },
+  "servers": [{ "url": "https://areapi.netlify.app" }],
+  "tags": [{ "name": "find" }, { "name": "meta" }],
+  "paths": {
+    "/api/find": {
+      "get": {
+        "tags": ["find"],
+        "summary": "Find every area containing a point",
+        "operationId": "find",
+        "parameters": [
+          { "$ref": "#/components/parameters/lat" },
+          { "$ref": "#/components/parameters/lon" },
+          { "name": "types", "in": "query", "description": "Comma-separated subset of area types. Default: all.", "schema": { "type": "string", "example": "cma,bta,county" } },
+          { "$ref": "#/components/parameters/format" },
+          { "$ref": "#/components/parameters/callback" }
+        ],
+        "responses": {
+          "200": { "description": "Result", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FindResult" }, "example": { "status": "OK", "point": { "lat": 38.9907, "lon": -77.0261 }, "types": ["cma", "bta"], "areas": [{ "type": "cma", "id": "8", "name": "Washington, DC-MD-VA", "defined": "1990", "asOf": "2026-10-08" }, { "type": "bta", "id": "461", "name": "Washington, DC", "defined": "1992", "asOf": "2026-10-08" }], "executionTime": 1.2 } }, "application/xml": {}, "application/javascript": {} } },
+          "400": { "description": "Bad input (invalid coordinates or unknown type)", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/api/{type}/find": {
+      "get": {
+        "tags": ["find"],
+        "summary": "Find the area of one type containing a point",
+        "operationId": "findType",
+        "parameters": [
+          { "$ref": "#/components/parameters/type" },
+          { "name": "latitude", "in": "query", "required": true, "schema": { "type": "number", "minimum": -90, "maximum": 90 }, "example": 38.9907, "description": "Also accepted as `lat`." },
+          { "name": "longitude", "in": "query", "required": true, "schema": { "type": "number", "minimum": -180, "maximum": 180 }, "example": -77.0261, "description": "Also accepted as `lon` or `lng`." },
+          { "$ref": "#/components/parameters/format" },
+          { "$ref": "#/components/parameters/callback" }
+        ],
+        "responses": {
+          "200": { "description": "Result", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FindResult" } } } },
+          "400": { "description": "Bad input", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/api/types": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "List area types with counts, as-of dates and sources",
+        "operationId": "types",
+        "responses": { "200": { "description": "Manifest", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Manifest" } } } } }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "lat": { "name": "lat", "in": "query", "required": true, "schema": { "type": "number", "minimum": -90, "maximum": 90 }, "example": 38.9907, "description": "Latitude. Also accepted as `latitude`." },
+      "lon": { "name": "lon", "in": "query", "required": true, "schema": { "type": "number", "minimum": -180, "maximum": 180 }, "example": -77.0261, "description": "Longitude. Also accepted as `longitude` or `lng`." },
+      "type": { "name": "type", "in": "path", "required": true, "schema": { "$ref": "#/components/schemas/AreaType" } },
+      "format": { "name": "format", "in": "query", "schema": { "type": "string", "enum": ["json", "xml", "jsonp"], "default": "json" } },
+      "callback": { "name": "callback", "in": "query", "description": "JSONP callback name (format=jsonp).", "schema": { "type": "string", "default": "callback" } }
+    },
+    "schemas": {
+      "AreaType": { "type": "string", "enum": ["cma", "bta", "mta", "ea", "mea", "reag", "pea", "rpc", "eag", "vpc", "cbsa", "county", "state", "cgsa"], "description": "cma Cellular Market Area · bta Basic Trading Area · mta Major Trading Area · ea Economic Area · mea Major Economic Area · reag Regional Economic Area Grouping · pea Partial Economic Area · rpc Regional PCS Area · eag Economic Area Grouping · vpc VHF Public Coast Station Area · cbsa Core Based Statistical Area · county · state · cgsa Cellular Geographic Service Area (license)" },
+      "Point": { "type": "object", "properties": { "lat": { "type": "number" }, "lon": { "type": "number" } }, "required": ["lat", "lon"] },
+      "Area": {
+        "type": "object",
+        "required": ["type", "id", "name"],
+        "properties": {
+          "type": { "$ref": "#/components/schemas/AreaType" },
+          "id": { "type": "string", "description": "Market number, FIPS/GEOID code, or call sign (cgsa), always a string.", "example": "8" },
+          "name": { "type": "string", "example": "Washington, DC-MD-VA" },
+          "defined": { "type": "string", "nullable": true, "description": "Year the scheme was defined; \"rolling\" for license areas.", "example": "1990" },
+          "asOf": { "type": "string", "nullable": true, "description": "Date the data was confirmed current (YYYY-MM-DD).", "example": "2026-10-08" }
+        }
+      },
+      "FindResult": {
+        "type": "object",
+        "required": ["status", "point", "types", "areas", "executionTime"],
+        "properties": {
+          "status": { "type": "string", "enum": ["OK", "NONE"], "description": "NONE when no requested area contains the point." },
+          "point": { "$ref": "#/components/schemas/Point" },
+          "types": { "type": "array", "items": { "$ref": "#/components/schemas/AreaType" } },
+          "areas": { "type": "array", "items": { "$ref": "#/components/schemas/Area" }, "description": "Normally one per type; cgsa can return two (A and B block licenses)." },
+          "executionTime": { "type": "number", "description": "Milliseconds" }
+        }
+      },
+      "Error": { "type": "object", "properties": { "status": { "type": "string", "enum": ["ERROR"] }, "error": { "type": "string" } } },
+      "Manifest": {
+        "type": "object",
+        "properties": {
+          "generated": { "type": "string" },
+          "geometrySources": { "type": "array", "items": { "type": "string" } },
+          "types": { "type": "object", "additionalProperties": { "type": "object", "properties": { "name": { "type": "string" }, "defined": { "type": "string" }, "asOf": { "type": "string" }, "note": { "type": "string" }, "count": { "type": "integer" }, "known": { "type": "integer" }, "missing": { "type": "array", "items": { "type": "object" } }, "bytes": { "type": "integer" } } } }
+        }
+      }
+    }
+  }
+}
