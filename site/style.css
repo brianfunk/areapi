@@ -6,7 +6,7 @@
   --line: #2a333d;
   --accent: #38bdf8;
   --accent-ink: #052e3f;
-  --hit: #22c55e;
+  --hit: #d6008f;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -29,7 +29,8 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 .results { display: flex; flex-direction: column; gap: 6px; }
 .results .status { font-size: 13px; color: var(--muted); }
 .row { display: grid; grid-template-columns: 52px 48px 1fr; gap: 8px; align-items: baseline; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; background: transparent; color: inherit; text-align: left; font: inherit; }
-.row:hover, .row[aria-pressed=true] { border-color: var(--accent); }
+.row:hover { border-color: var(--line); background: rgba(255,255,255,.03); }
+.row[aria-pressed=true] { border-color: var(--hit); box-shadow: inset 3px 0 0 var(--hit); }
 .row .type { font: 600 12px var(--mono); color: var(--accent); }
 .row .id { font: 13px var(--mono); color: var(--muted); }
 .row .name { font-weight: 500; }
@@ -41,6 +42,13 @@ footer { margin-top: auto; font-size: 13px; color: var(--muted); }
 footer a { color: var(--accent); }
 .fine { font-size: 11px; line-height: 1.4; }
 .leaflet-container { background: var(--bg); }
+/* Mute the basemap so the highlighted area is the only saturated thing on it. */
+.leaflet-layer.muted { filter: grayscale(0.85) contrast(0.95); }
+.leaflet-control-layers { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; font: 13px var(--font); }
+.leaflet-control-layers-expanded { padding: 8px 12px 8px 8px; }
+.leaflet-control-layers label { display: block; padding: 2px 0; }
+.leaflet-control-zoom a { background: var(--panel) !important; color: var(--ink) !important; border-color: var(--line) !important; }
+.leaflet-marker-pane img { filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; grid-template-rows: 45vh 1fr; }
   .map { order: -1; }

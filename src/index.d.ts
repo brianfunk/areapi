@@ -1,4 +1,8 @@
-export type AreaType = 'cma' | 'bta' | 'mta' | 'ea' | 'mea' | 'reag' | 'pea';
+export type AreaType =
+  | 'cma' | 'bta' | 'mta' | 'ea' | 'mea' | 'reag' | 'pea'
+  | 'rpc' | 'eag' | 'vpc'
+  | 'cbsa' | 'county' | 'state'
+  | 'cgsa';
 
 export const TYPES: readonly AreaType[];
 export const TYPE_NAMES: Readonly<Record<AreaType, string>>;
@@ -15,10 +19,13 @@ export interface PointInput {
 
 export interface Area {
   type: AreaType;
-  /** Market number as a string, e.g. "8" */
+  /** Market number (or FIPS/GEOID code, or call sign for cgsa) as a string, e.g. "8" */
   id: string;
   name: string;
-  vintage: string | null;
+  /** Build date the data was confirmed current, YYYY-MM-DD */
+  asOf: string | null;
+  /** Year the scheme was defined ("rolling" for license areas that change) */
+  defined: string | null;
 }
 
 export interface FindOptions {
@@ -37,7 +44,7 @@ export interface FindResult {
 
 export interface AreaFeature {
   type: 'Feature';
-  id: number;
+  id: number | string;
   bbox: [number, number, number, number];
   properties: { id: string; name: string };
   geometry: { type: 'Polygon'; coordinates: number[][][] } | { type: 'MultiPolygon'; coordinates: number[][][][] };
@@ -52,10 +59,12 @@ export interface Manifest {
   names: string;
   types: Record<AreaType, {
     name: string;
-    vintage: string;
+    defined: string;
+    asOf: string;
     note: string;
     count: number;
-    defined: number;
+    /** Number of ids the names source defines (count + missing) */
+    known: number;
     missing: { id: string; name: string }[];
     bytes: number;
   }>;
@@ -77,7 +86,7 @@ export function findType(type: AreaType, point: Point): Promise<Area[]>;
 /** GeoJSON Feature for one area, or null if the id is unknown. */
 export function feature(type: AreaType | string, id: string | number): Promise<AreaFeature | null>;
 
-/** The data manifest: counts, vintages, sources, missing ids. */
+/** The data manifest: counts, as-of dates, sources, missing ids. */
 export function types(): Promise<Manifest>;
 
 export function normalizeTypes(types?: FindOptions['types'] | null): AreaType[];

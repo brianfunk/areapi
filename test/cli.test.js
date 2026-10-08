@@ -27,5 +27,5 @@ test('cli: exit codes', () => {
 });
 
 test('cli: --list', () => {
-  assert.match(cli('--list'), /cma\s+\d+\s+1990\s+Cellular Market Area/);
+  assert.match(cli('--list'), /cma\s+734\s+as of \d{4}-\d{2}-\d{2}\s+\(defined 1990\)\s+Cellular Market Area/);
 });

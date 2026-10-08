@@ -9,7 +9,10 @@
   "ea": 176,
   "mea": 52,
   "reag": 12,
-  "pea": 416
+  "pea": 416,
+  "rpc": 5,
+  "eag": 6,
+  "vpc": 42
  },
  "names": {
   "cma": {
@@ -1959,6 +1962,65 @@
    "414": "US Virgin Islands",
    "415": "American Samoa",
    "416": "Gulf of Mexico"
+  },
+  "rpc": {
+   "1": "Northeast Region",
+   "2": "Southern Region",
+   "3": "Midwest Region",
+   "4": "Central Region",
+   "5": "Western Region"
+  },
+  "eag": {
+   "1": "Northeast",
+   "2": "Mid-Atlantic",
+   "3": "Southeast",
+   "4": "Great Lakes",
+   "5": "Central/Mountain",
+   "6": "Pacific"
+  },
+  "vpc": {
+   "1": "Northern Atlantic",
+   "2": "Mid-Atlantic",
+   "3": "Southern Atlantic",
+   "4": "Mississippi River",
+   "5": "Great Lakes",
+   "6": "Southern Pacific",
+   "7": "Northern Pacific",
+   "8": "Hawaii",
+   "9": "Alaska",
+   "10": "Grand Forks, ND-MN",
+   "11": "Minot, ND",
+   "12": "Bismarck, ND-MT-SD",
+   "13": "Aberdeen, SD",
+   "14": "Rapid City, SD-MT-NE-ND",
+   "15": "North Platte, NE-CO",
+   "16": "Western Oklahoma, OK",
+   "17": "Abilene, TX",
+   "18": "San Angelo, TX",
+   "19": "Odessa-Midland, TX",
+   "20": "Hobbs, NM-TX",
+   "21": "Lubbock, TX",
+   "22": "Amarillo, TX-NM",
+   "23": "Santa Fe, NM",
+   "24": "Pueblo, CO-NM",
+   "25": "Denver-Boulder-Greeley, CO-KS-",
+   "26": "Scottsbluff, NE-WY",
+   "27": "Casper, WY-ID-UT",
+   "28": "Billings, MT-WY",
+   "29": "Great Falls, MT",
+   "30": "Missoula, MT",
+   "31": "Idaho Falls, ID-WY",
+   "32": "Twin Falls, ID",
+   "33": "Boise City, ID-OR",
+   "34": "Reno, NV-CA",
+   "35": "Salt Lake City-Ogden, UT-ID",
+   "36": "Las Vegas, NV-AZ-UT",
+   "37": "Flagstaff, AZ-UT",
+   "38": "Farmington, NM-CO",
+   "39": "Albuquerque, NM-AZ",
+   "40": "El Paso, TX-NM",
+   "41": "Phoenix-Mesa, AZ-NM",
+   "42": "Tucson, AZ"
   }
  }
 }

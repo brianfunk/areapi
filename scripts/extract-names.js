@@ -11,7 +11,7 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const PREFIX = { CMA: 'cma', BTA: 'bta', MTA: 'mta', BEA: 'ea', MEA: 'mea', REA: 'reag', PEA: 'pea' };
+const PREFIX = { CMA: 'cma', BTA: 'bta', MTA: 'mta', BEA: 'ea', MEA: 'mea', REA: 'reag', PEA: 'pea', RPC: 'rpc', EAG: 'eag', VPC: 'vpc' };
 
 const names = Object.fromEntries(Object.values(PREFIX).map((t) => [t, {}]));
 for (const line of readFileSync('data/raw/uls-markets.txt', 'utf8').split('\n')) {
@@ -19,7 +19,11 @@ for (const line of readFileSync('data/raw/uls-markets.txt', 'utf8').split('\n'))
   const m = code && code.match(/^([A-Z]+)0*(\d+)$/);
   if (!m || !PREFIX[m[1]] || !name) continue;
   const type = PREFIX[m[1]];
-  const id = m[2];
+  let id = m[2];
+  // EAG001-006 (220 MHz) and EAG701-706 (700 MHz) are the same six regions.
+  if (type === 'eag') {
+    if (Number(id) > 700) continue;
+  }
   const clean = name.trim().replace(/\s+/g, ' ');
   if (names[type][id] && names[type][id] !== clean) {
     console.warn(`conflict ${type} ${id}: "${names[type][id]}" vs "${clean}"`);

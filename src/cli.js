@@ -19,7 +19,7 @@ Usage:
 Options:
   -t, --types   comma-separated area types (default: all of ${TYPES.join(',')})
   -f, --format  table (default on a terminal), json (default when piped), xml
-  -l, --list    list area types with counts and vintages
+  -l, --list    list area types with counts and as-of dates
   -h, --help    show this help
 `;
 
@@ -54,7 +54,7 @@ if (values.help) {
 
 if (values.list) {
   const m = await types();
-  const rows = Object.entries(m.types).map(([k, t]) => `${k.padEnd(5)} ${String(t.count).padStart(4)}  ${t.vintage}  ${TYPE_NAMES[k]}`);
+  const rows = Object.entries(m.types).map(([k, t]) => `${k.padEnd(6)} ${String(t.count).padStart(4)}  as of ${t.asOf}  (defined ${t.defined})  ${TYPE_NAMES[k]}`);
   process.stdout.write(rows.join('\n') + '\n');
   process.exit(0);
 }

@@ -17,7 +17,20 @@ test('find: Washington DC hits every type', async () => {
   assert.equal(byType.mea.id, '5');
   assert.equal(byType.reag.id, '2');
   assert.equal(byType.pea.id, '5');
-  assert.equal(r.areas.length, 7, 'exactly one hit per type');
+  assert.equal(byType.rpc.id, '2');
+  assert.equal(byType.eag.id, '2');
+  assert.match(byType.vpc.name, /Atlantic/);
+  assert.equal(byType.cbsa.id, '47900');
+  assert.match(byType.cbsa.name, /^Washington-Arlington-Alexandria.*Metro Area$/);
+  // The point is in Silver Spring, just over the DC line.
+  assert.equal(byType.county.id, '24031');
+  assert.equal(byType.county.name, 'Montgomery, Maryland');
+  assert.equal(byType.state.id, '24');
+  assert.equal(byType.state.name, 'Maryland');
+  const cgsa = r.areas.filter((a) => a.type === 'cgsa');
+  assert.ok(cgsa.length >= 1 && cgsa.length <= 2, 'one or two cellular licenses');
+  for (const c of cgsa) assert.match(c.name, /^[AB] block, Washington, DC-MD-VA$/);
+  assert.equal(r.areas.length, TYPES.length - 1 + cgsa.length, 'exactly one hit per type, except cgsa');
   assert.equal(typeof r.executionTime, 'number');
 });
 
@@ -43,6 +56,21 @@ test('find: territories are covered', async () => {
   assert.match(samoa.areas[0].name, /American Samoa/);
   const usvi = await find({ lat: 18.35, lon: -64.93 }, { types: 'bta' });
   assert.equal(usvi.areas[0].id, '491');
+});
+
+test('find: DC proper', async () => {
+  const r = await find({ lat: 38.8977, lon: -77.0365 }, { types: 'county,state,cbsa' });
+  const ids = Object.fromEntries(r.areas.map((a) => [a.type, a]));
+  assert.equal(ids.county.id, '11001');
+  assert.equal(ids.state.name, 'District of Columbia');
+  assert.equal(ids.cbsa.id, '47900');
+  const micro = await find({ lat: 44.3106, lon: -69.7795 }, { types: 'cbsa' }); // Augusta, ME
+  assert.match(micro.areas[0].name, /Micro Area$/);
+});
+
+test('find: Puerto Rico names are re-encoded', async () => {
+  const r = await find({ lat: 18.28, lon: -67.14 }, { types: 'county' });
+  assert.equal(r.areas[0].name, 'Añasco, Puerto Rico');
 });
 
 test('find: Gulf of Mexico is its own market', async () => {
@@ -91,6 +119,8 @@ test('types: manifest lists every type with counts', async () => {
   for (const t of TYPES) assert.ok(m.types[t].count > 0, t);
   assert.equal(m.types.bta.count, 493);
   assert.equal(m.types.cma.count, 734);
+  assert.equal(m.types.county.count, 3235);
+  assert.equal(m.types.cbsa.count, 935);
   for (const t of TYPES) assert.deepEqual(m.types[t].missing, [], t);
   assert.equal(m.types.pea.count, 416);
 });

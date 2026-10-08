@@ -12,7 +12,7 @@ import { load, loadManifest, setDataUrl } from './load.js';
 export { setDataUrl };
 
 /** Area types in display order. Keep in sync with data/manifest.json. */
-export const TYPES = ['cma', 'bta', 'mta', 'ea', 'mea', 'reag', 'pea'];
+export const TYPES = ['cma', 'bta', 'mta', 'ea', 'mea', 'reag', 'pea', 'rpc', 'eag', 'vpc', 'cbsa', 'county', 'state', 'cgsa'];
 
 export const TYPE_NAMES = {
   cma: 'Cellular Market Area',
@@ -22,6 +22,13 @@ export const TYPE_NAMES = {
   mea: 'Major Economic Area',
   reag: 'Regional Economic Area Grouping',
   pea: 'Partial Economic Area',
+  rpc: 'Regional PCS Area',
+  eag: 'Economic Area Grouping',
+  vpc: 'VHF Public Coast Station Area',
+  cbsa: 'Core Based Statistical Area',
+  county: 'County',
+  state: 'State',
+  cgsa: 'Cellular Geographic Service Area',
 };
 
 export class AreapiError extends Error {
@@ -70,7 +77,8 @@ export async function findType(type, { lat, lon }) {
         type,
         id: String(f.properties.id),
         name: f.properties.name,
-        vintage: data.vintage ?? null,
+        defined: data.defined ?? null,
+        asOf: data.asOf ?? null,
       });
     }
   }
@@ -103,7 +111,7 @@ export async function feature(type, id) {
   return data.features.find((f) => String(f.properties.id) === String(id)) ?? null;
 }
 
-/** Manifest: vintages, counts, sources. */
+/** Manifest: counts, as-of dates, sources. */
 export function types() {
   return loadManifest();
 }

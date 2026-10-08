@@ -10,14 +10,35 @@ const results = $('#results');
 const apilink = $('#apilink');
 const apitext = $('#apitext');
 
-const map = L.map('map', { worldCopyJump: true }).setView([38.5, -96], 4);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  maxZoom: 18,
-}).addTo(map);
+const map = L.map('map', {
+  worldCopyJump: true,
+  // Fractional zoom so the wheel glides instead of jumping a whole level at a time.
+  zoomSnap: 0.25,
+  zoomDelta: 0.5,
+  wheelPxPerZoomLevel: 120,
+  wheelDebounceTime: 20,
+}).setView([38.5, -96], 4);
+map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+
+const osmAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const esriAttr = 'Tiles &copy; Esri';
+const BASEMAPS = {
+  Streets: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: osmAttr, maxZoom: 19, className: 'muted' }),
+  Topo: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { attribution: osmAttr + ', <a href="https://opentopomap.org">OpenTopoMap</a>', maxZoom: 17 }),
+  Satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: esriAttr + ', Maxar, Earthstar Geographics', maxZoom: 18 }),
+};
+
+let saved = null;
+try { saved = localStorage.getItem('areapi.basemap'); } catch { /* private mode */ }
+const defaultBase = BASEMAPS[saved] ? saved : 'Streets';
+BASEMAPS[defaultBase].addTo(map);
+L.control.layers(BASEMAPS, null, { position: 'topright', collapsed: false }).addTo(map);
+map.on('baselayerchange', (e) => {
+  try { localStorage.setItem('areapi.basemap', e.name); } catch { /* ignore */ }
+});
 
 let marker = null;
-let outline = null;
+let outline = null; // L.layerGroup of casing + line
 let manifest = null;
 
 map.on('click', (e) => {
@@ -76,7 +97,7 @@ function render(r) {
     row.className = 'row';
     row.type = 'button';
     row.setAttribute('aria-pressed', 'false');
-    row.innerHTML = `<span class="type">${a.type.toUpperCase()}</span><span class="id">${escape(a.id)}</span><span class="name">${escape(a.name)}</span><span class="sub">${TYPE_NAMES[a.type]} · ${a.vintage}</span>`;
+    row.innerHTML = `<span class="type">${a.type.toUpperCase()}</span><span class="id">${escape(a.id)}</span><span class="name">${escape(a.name)}</span><span class="sub">${TYPE_NAMES[a.type]} · as of ${(a.asOf || '').slice(0, 4)}</span>`;
     row.addEventListener('click', () => draw(a, row));
     results.append(row);
   }
@@ -88,8 +109,11 @@ async function draw(area, row) {
   const f = await feature(area.type, area.id);
   if (!f) return;
   if (outline) outline.remove();
-  outline = L.geoJSON(f, { style: { color: '#22c55e', weight: 2, fillOpacity: 0.12 } }).addTo(map);
-  map.fitBounds(outline.getBounds(), { padding: [24, 24], maxZoom: 9 });
+  // White casing under a saturated line so the shape reads on any basemap.
+  const casing = L.geoJSON(f, { style: { color: '#ffffff', weight: 6, opacity: 0.9, fill: false }, interactive: false });
+  const line = L.geoJSON(f, { style: { color: '#d6008f', weight: 2.5, opacity: 1, fillColor: '#d6008f', fillOpacity: 0.16 }, interactive: false });
+  outline = L.layerGroup([casing, line]).addTo(map);
+  map.fitBounds(line.getBounds(), { padding: [24, 24], maxZoom: 9 });
 }
 
 function escape(s) {
