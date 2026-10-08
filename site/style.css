@@ -41,14 +41,14 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 footer { margin-top: auto; font-size: 13px; color: var(--muted); }
 footer a { color: var(--accent); }
 .fine { font-size: 11px; line-height: 1.4; }
-.leaflet-container { background: var(--bg); }
-/* Mute the basemap so the highlighted area is the only saturated thing on it. */
-.leaflet-layer.muted { filter: grayscale(0.85) contrast(0.95); }
-.leaflet-control-layers { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; font: 13px var(--font); }
-.leaflet-control-layers-expanded { padding: 8px 12px 8px 8px; }
-.leaflet-control-layers label { display: block; padding: 2px 0; }
-.leaflet-control-zoom a { background: var(--panel) !important; color: var(--ink) !important; border-color: var(--line) !important; }
-.leaflet-marker-pane img { filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+.maplibregl-map { background: var(--bg); }
+.maplibregl-ctrl.basemaps { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px 8px 8px; font: 13px var(--font); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+.maplibregl-ctrl.basemaps label { display: block; padding: 2px 0; cursor: pointer; }
+.maplibregl-ctrl-group { background: var(--panel) !important; border: 1px solid var(--line); }
+.maplibregl-ctrl-group button + button { border-top-color: var(--line) !important; }
+.maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(0.9); }
+@media (prefers-color-scheme: light) { .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: none; } }
+.maplibregl-ctrl-attrib { font-size: 11px; }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; grid-template-rows: 45vh 1fr; }
   .map { order: -1; }

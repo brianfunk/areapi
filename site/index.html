@@ -6,7 +6,7 @@
   <title>areapi</title>
   <meta name="description" content="Which FCC market area is this point in? CMA, BTA, MTA, EA, MEA, REAG and PEA lookup by latitude and longitude.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" crossorigin="">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -35,13 +35,13 @@
         <a href="https://github.com/brianfunk/areapi">GitHub</a> ·
         <a href="https://www.npmjs.com/package/@brianfunk/areapi">npm</a> ·
         <a href="/api/types">/api/types</a>
-        <p class="fine">Cellular Market Areas, Basic &amp; Major Trading Areas, Economic Areas, Major Economic Areas, Regional Economic Area Groupings and Partial Economic Areas, built from FCC county crosswalks and Census boundaries. No database, no server-side state. The Gulf of Mexico has no land polygon and is not covered.</p>
+        <p class="fine">FCC market areas (CMA, BTA, MTA, EA, MEA, REAG, PEA, RPC, EAG, VPC), cellular license areas, counties, states and Census metro areas, built from FCC crosswalks, FCC license data and Census boundaries. No database, no server-side state.</p>
       </footer>
     </aside>
     <div id="map" class="map" role="application" aria-label="Map"></div>
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" crossorigin=""></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ Guidance for coding agents (and humans) working in this repo.
 
 ## What this is
 
-`@brianfunk/areapi` answers "which FCC market area is this point in?" from a latitude/longitude. One zero-dependency ES module (`src/`) powers three surfaces: the npm library + CLI, a static Leaflet site (`site/`), and one Netlify Function (`netlify/functions/find.js`). There is no database and no server-side state; the polygons are simplified GeoJSON committed under `data/`.
+`@brianfunk/areapi` answers "which FCC market area is this point in?" from a latitude/longitude. One zero-dependency ES module (`src/`) powers three surfaces: the npm library + CLI, a static MapLibre map site (`site/`), and one Netlify Function (`netlify/functions/find.js`). There is no database and no server-side state; the polygons are simplified GeoJSON committed under `data/`.
 
 ## Layout
 
